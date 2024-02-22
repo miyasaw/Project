@@ -5,6 +5,7 @@ class Admin::Articles::PreviewsController < ApplicationController
 
   def show
     @article = Article.find_by!(uuid: params[:article_uuid])
+    # binding_pry
     @article.body = @article.build_body(self)
   end
 end
