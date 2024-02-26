@@ -93,12 +93,10 @@ class Article < ApplicationRecord
     @prev_article ||= Article.viewable.order(published_at: :desc).find_by('published_at < ?', published_at)
   end
 
-# 公開可能か判定するメソッド
-  def publishable? 
+  def publishable?
     Time.current >= published_at
   end
 
-# ステータスによってメッセージを分岐させる処理
   def message_on_published
     if published?
       '記事を公開しました'
@@ -107,11 +105,9 @@ class Article < ApplicationRecord
     end
   end
 
-# もしステータスがdraftならメソッドを抜け出す
-# 公開可能か判定
   def adjust_state
     return if draft?
-
+    
     self.state = if publishable?
                    :published
                  else
