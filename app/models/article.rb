@@ -39,7 +39,7 @@ class Article < ApplicationRecord
 
   has_one_attached :eye_catch
 
-  enum state: { draft: 0, published: 1, published_wait: 2 }
+  enum state: { draft: 0, published: 1, publish_wait: 2 }
 
   validates :slug, slug_format: true, uniqueness: true, length: { maximum: 255 }, allow_blank: true
   validates :title, presence: true, uniqueness: true, length: { maximum: 255 }
@@ -107,7 +107,6 @@ class Article < ApplicationRecord
 
   def adjust_state
     return if draft?
-    
     self.state = if publishable?
                    :published
                  else
