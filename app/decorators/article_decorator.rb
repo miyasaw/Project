@@ -15,6 +15,6 @@ module ArticleDecorator
                 false
               end
 
-    command ? eye_catch.variant(command).processed : eye_catch
+    command ? eye_catch.variant(command) : eye_catch
   end
 end
