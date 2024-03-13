@@ -1,5 +1,46 @@
-header.jumbotron.jumbotron-fluid
-  .container
+header
+  .swiper
+    .swiper-wrapper
+      - if current_site.main_images.present?
+        - current_site.main_images.each do |main_image|
+          = image_tag url_for(main_image), class: 'swiper-slide'
+      - else
+        = image_tag '/images/cover.jpg', class: 'swiper-slide'
+    .swiper-button-next    
+    .swiper-button-prev
+    .swiper-pagination
+    .swiper-scrollbar
+  .container.blog-title
     h1 = link_to current_site.name, root_path
     p.lead = current_site.subtitle
 
+javascript:
+  document.addEventListener('DOMContentLoaded', function() {
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'vertical',
+      loop: true,
+    
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+      
+      //Autoplay
+      autoplay: {
+        delay: 3000,
+      },
+    })
+  });
+  
